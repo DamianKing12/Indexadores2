@@ -1,0 +1,72 @@
+name: Build and Deploy
+
+concurrency: 
+  group: "build"
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    paths-ignore:
+      - '*.md'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Builds Branch
+        uses: actions/checkout@v4
+        with:
+          ref: "builds"
+          path: "build-output"
+          fetch-depth: 0
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build Plugins
+        run: |
+          chmod +x gradlew
+          # Compila todos los plugins y genera el archivo plugins.json automáticamente
+          # El comando 'make' es proporcionado por el plugin de gradle de Cloudstream
+          ./gradlew make --no-daemon --stacktrace
+
+      - name: Prepare Artifacts
+        run: |
+          mkdir -p build-output
+          # El plugin de Cloudstream suele generar los archivos en build/
+          # Pero vamos a asegurarnos de copiar los .cs3 (o .aar) y el plugins.json
+          # Buscamos en todas las carpetas build/ de los subproyectos
+          find . -name "*.cs3" -exec cp {} build-output/ \;
+          find . -name "*.aar" -exec cp {} build-output/ \;
+          
+          # Copiamos el plugins.json generado (usualmente en la raíz o en build)
+          cp plugins.json build-output/ 2>/dev/null || true
+          
+          # Si el plugin genera una carpeta 'build' en la raíz con todo listo:
+          if [ -d "build" ]; then
+            cp -r build/* build-output/ 2>/dev/null || true
+          fi
+
+      - name: Push builds
+        run: |
+          cd build-output
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -m "Build $GITHUB_SHA" || exit 0
+          git push origin builds --force

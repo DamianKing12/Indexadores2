@@ -5,7 +5,6 @@ buildscript {
         maven { url = uri("https://jitpack.io") }
     }
 
-    // Esta es la corrección clave para saltar el error de jadb:master-SNAPSHOT
     configurations.all {
         resolutionStrategy {
             force("com.github.vidstige:jadb:1.2.1")
@@ -19,9 +18,7 @@ buildscript {
     }
 }
 
-// Eliminamos el bloque allprojects para limpiar los errores de configuración
-// Los repositorios ya se manejan correctamente en settings.gradle.kts
-
-task("clean", Delete::class) {
+// Forma moderna de registrar la tarea clean en Gradle 8.x
+tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
 }

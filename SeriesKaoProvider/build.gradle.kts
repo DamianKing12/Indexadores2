@@ -29,6 +29,7 @@ android {
 }
 
 cloudstream {
+    // Estas líneas son las que generan el plugins.json automáticamente
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
     status = 1
@@ -42,7 +43,6 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     
-    // Usamos una versión específica más estable para evitar errores de referencias no encontradas
     compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
     
     implementation(kotlin("stdlib"))

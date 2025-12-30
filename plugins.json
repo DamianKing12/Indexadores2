@@ -1,7 +1,7 @@
 [
   {
     "name": "SeriesKaoProvider",
-    "url": "https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/SeriesKaoProvider.cs3",
+    "url": "https://github.com/DamianKing12/Indexadores2/raw/refs/heads/builds/SeriesKaoProvider.cs3",
     "version": 1,
     "description": "Plugin Indexador para SeriesKao",
     "authors": [

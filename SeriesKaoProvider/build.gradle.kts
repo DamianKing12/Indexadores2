@@ -29,7 +29,9 @@ android {
 }
 
 cloudstream {
-    // Estas líneas son las que generan el plugins.json automáticamente
+    // Identificador interno único
+    internalName = "SeriesKaoProvider"
+    
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
     status = 1
@@ -37,6 +39,9 @@ cloudstream {
     requiresResources = false
     language = "es"
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
+    
+    // Aseguramos que este plugin sepa su URL de repositorio
+    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
 }
 
 dependencies {

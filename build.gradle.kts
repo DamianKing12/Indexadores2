@@ -18,8 +18,13 @@ buildscript {
     }
 }
 
-// Aplicamos el plugin también en la raíz para habilitar la generación de plugins.json
 apply(plugin = "com.lagradost.cloudstream3.gradle")
+
+// Configuración global del repositorio para generar plugins.json
+cloudstream {
+    // Esta URL es la que el sistema usará para crear los enlaces de descarga en el JSON
+    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
+}
 
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)

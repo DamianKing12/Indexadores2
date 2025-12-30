@@ -20,9 +20,9 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Usamos esta sintaxis para evitar el error de "Unresolved reference" en la raíz
+// Usamos la URL estándar del repositorio. El plugin detectará que es GitHub.
 configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
-    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
+    setRepo("https://github.com/DamianKing12/Indexadores2")
 }
 
 tasks.register<Delete>("clean") {

@@ -40,8 +40,8 @@ cloudstream {
     language = "es"
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
-    // Aseguramos que este plugin sepa su URL de repositorio
-    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
+    // Usamos la URL principal del repositorio
+    setRepo("https://github.com/DamianKing12/Indexadores2")
 }
 
 dependencies {

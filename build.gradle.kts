@@ -20,9 +20,8 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Configuración global del repositorio para generar plugins.json
-cloudstream {
-    // Esta URL es la que el sistema usará para crear los enlaces de descarga en el JSON
+// Usamos esta sintaxis para evitar el error de "Unresolved reference" en la raíz
+configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
     setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
 }
 

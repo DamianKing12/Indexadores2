@@ -44,24 +44,24 @@ jobs:
 
       - name: Build Plugins
         run: |
-          gradle make --no-daemon --stacktrace
+          # Usamos gradle del sistema para reparar el wrapper y asegurar una versión compatible
+          gradle wrapper --gradle-version 8.10
+          chmod +x gradlew
+          ./gradlew make --no-daemon --stacktrace
 
       - name: Prepare Artifacts
         run: |
           mkdir -p build-output
           rm -rf build-output/*
           
-          # Buscamos y copiamos todos los .cs3
+          # Copiamos todos los plugins compilados
           find . -name "*.cs3" -exec cp {} build-output/ \;
           
-          # Buscamos el plugins.json en la raíz o en build/
-          if [ -f "plugins.json" ]; then
-            cp plugins.json build-output/
-          elif [ -f "build/plugins.json" ]; then
-            cp build/plugins.json build-output/
-          fi
+          # Buscamos el plugins.json generado por la tarea 'make'
+          # Suele estar en build/ o en la raíz
+          find . -name "plugins.json" -exec cp {} build-output/ \;
           
-          # Verificamos si se copió algo
+          echo "Contenido de la carpeta de salida:"
           ls -R build-output/
 
       - name: Push builds

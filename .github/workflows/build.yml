@@ -41,17 +41,23 @@ jobs:
 
       - name: Build Plugins
         run: |
-          # Usamos 'gradle' del sistema en lugar de './gradlew' para ignorar el JAR dañado
+          # Usamos 'gradle' del sistema
           gradle make --no-daemon --stacktrace
 
       - name: Prepare Artifacts
         run: |
           mkdir -p build-output
-          find . -name "*.cs3" -exec cp {} build-output/ \;
-          find . -name "*.aar" -exec cp {} build-output/ \;
+          # Limpiamos archivos viejos si existen
+          rm -rf build-output/*
+          
+          # Copiamos solo los plugins (.cs3) y el archivo de repositorio (plugins.json)
+          find . -maxdepth 3 -name "*.cs3" -exec cp {} build-output/ \;
           cp plugins.json build-output/ 2>/dev/null || true
+          
+          # Si el plugin genera una carpeta 'build' en la raíz con el resultado final:
           if [ -d "build" ]; then
-            cp -r build/* build-output/ 2>/dev/null || true
+            cp build/*.cs3 build-output/ 2>/dev/null || true
+            cp build/plugins.json build-output/ 2>/dev/null || true
           fi
 
       - name: Push builds
@@ -59,14 +65,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd build-output
+          # Inicializar si es necesario
           if [ ! -d ".git" ]; then
             git init
             git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
-            git checkout -b builds
           fi
           
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          
+          # Forzar a estar en la rama 'builds'
+          git checkout -B builds
+          
           git add .
           git commit -m "Build $GITHUB_SHA" || exit 0
           git push origin builds --force

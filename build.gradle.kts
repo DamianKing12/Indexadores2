@@ -20,9 +20,9 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Usamos la URL estándar del repositorio. El plugin detectará que es GitHub.
+// Usamos el formato de 3 parámetros para asegurar que el plugin reconozca el repositorio
 configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
-    setRepo("https://github.com/DamianKing12/Indexadores2")
+    setRepo("DamianKing12", "Indexadores2", "github")
 }
 
 tasks.register<Delete>("clean") {

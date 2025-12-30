@@ -10,7 +10,6 @@ android {
     
     defaultConfig {
         minSdk = 21
-        // targetSdk en librerías está obsoleto, con compileSdk es suficiente
     }
     
     buildFeatures {
@@ -22,12 +21,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    // Eliminamos kotlinOptions obsoleto para evitar el error del compilador
 }
 
 cloudstream {
-    // El nombre se toma automáticamente de la clase Provider, no usamos name ni internalName aquí
+    // ASIGNAR VERSIÓN: Crítico para la generación del JSON
+    versionCode = 1
+    
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
     status = 1
@@ -36,7 +35,6 @@ cloudstream {
     language = "es"
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
-    // Usamos la URL estándar que el plugin reconoce
     setRepo("https://github.com/DamianKing12/Indexadores2")
 }
 

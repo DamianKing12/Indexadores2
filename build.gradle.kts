@@ -20,9 +20,14 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Usamos el formato de 3 parámetros para asegurar que el plugin reconozca el repositorio
-configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
-    setRepo("DamianKing12", "Indexadores2", "github")
+// Configuración de repositorio obligatoria en la raíz
+cloudstream {
+    setRepo("https://github.com/DamianKing12/Indexadores2")
+}
+
+// Forzamos a que el sistema busque en los subproyectos
+subprojects {
+    apply(plugin = "com.lagradost.cloudstream3.gradle")
 }
 
 tasks.register<Delete>("clean") {

@@ -16,7 +16,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # ESTO ES LO QUE FALTA: Permiso para escribir en el repositorio
     permissions:
       contents: write
       
@@ -51,12 +50,19 @@ jobs:
         run: |
           mkdir -p build-output
           rm -rf build-output/*
-          find . -maxdepth 3 -name "*.cs3" -exec cp {} build-output/ \;
-          cp plugins.json build-output/ 2>/dev/null || true
-          if [ -d "build" ]; then
-            cp build/*.cs3 build-output/ 2>/dev/null || true
-            cp build/plugins.json build-output/ 2>/dev/null || true
+          
+          # Buscamos y copiamos todos los .cs3
+          find . -name "*.cs3" -exec cp {} build-output/ \;
+          
+          # Buscamos el plugins.json en la raíz o en build/
+          if [ -f "plugins.json" ]; then
+            cp plugins.json build-output/
+          elif [ -f "build/plugins.json" ]; then
+            cp build/plugins.json build-output/
           fi
+          
+          # Verificamos si se copió algo
+          ls -R build-output/
 
       - name: Push builds
         env:

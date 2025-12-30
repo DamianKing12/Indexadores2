@@ -18,7 +18,9 @@ buildscript {
     }
 }
 
-// Forma moderna de registrar la tarea clean en Gradle 8.x
+// Aplicamos el plugin también en la raíz para habilitar la generación de plugins.json
+apply(plugin = "com.lagradost.cloudstream3.gradle")
+
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
 }

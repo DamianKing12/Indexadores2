@@ -2,7 +2,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven("https://jitpack.io")
     }
 
     configurations.all {
@@ -20,9 +20,9 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Formato de 3 parámetros: (usuario, repositorio, tipo)
-extensions.configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension>("cloudstream") {
-    setRepo("DamianKing12", "Indexadores2", "github")
+// CONFIGURACIÓN CLAVE: Usamos la URL completa y directa
+configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
+    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
 }
 
 tasks.register<Delete>("clean") {

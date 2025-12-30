@@ -24,8 +24,8 @@ android {
 }
 
 cloudstream {
-    // ASIGNAR VERSIÓN: Crítico para la generación del JSON
-    versionCode = 1
+    // CORRECCIÓN: 'version' es el campo correcto para el plugin
+    version = 1
     
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
@@ -35,7 +35,8 @@ cloudstream {
     language = "es"
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
-    setRepo("https://github.com/DamianKing12/Indexadores2")
+    // Regresamos a la URL raw que suele ser más efectiva para generar el JSON
+    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
 }
 
 dependencies {

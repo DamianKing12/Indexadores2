@@ -4,13 +4,12 @@ import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 import com.lagradost.cloudstream3.app
 import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
-import com.lagradost.cloudstream3.plugins.Plugin
-import android.content.Context
+import com.lagradost.cloudstream3.plugins.BasePlugin
 
 @CloudstreamPlugin
-class SeriesKaoPlugin : Plugin() {
-    override fun load(context: Context) {
-        // Registramos la clase del proveedor
+class SeriesKaoPlugin : BasePlugin() {
+    override fun load() {
+        // Registro del proveedor de búsqueda
         registerMainAPI(SeriesKaoProvider())
     }
 }

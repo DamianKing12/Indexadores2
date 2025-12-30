@@ -20,9 +20,9 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// CONFIGURACIÓN CLAVE: Usamos la URL completa y directa
+// Usamos el formato de 3 parámetros que solicita el error para evitar "Unknown domain"
 configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension> {
-    setRepo("https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/plugins.json")
+    setRepo("DamianKing12", "Indexadores2", "github")
 }
 
 tasks.register<Delete>("clean") {

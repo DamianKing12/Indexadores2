@@ -20,14 +20,9 @@ buildscript {
 
 apply(plugin = "com.lagradost.cloudstream3.gradle")
 
-// Configuración de repositorio obligatoria en la raíz
-cloudstream {
+// Usamos la sintaxis de extensions para evitar el error de "Unresolved reference" en el archivo raíz
+extensions.configure<com.lagradost.cloudstream3.gradle.CloudstreamExtension>("cloudstream") {
     setRepo("https://github.com/DamianKing12/Indexadores2")
-}
-
-// Forzamos a que el sistema busque en los subproyectos
-subprojects {
-    apply(plugin = "com.lagradost.cloudstream3.gradle")
 }
 
 tasks.register<Delete>("clean") {

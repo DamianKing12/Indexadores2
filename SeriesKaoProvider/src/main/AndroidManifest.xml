@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.DamianKing12.serieskao">
+    <application>
+        <meta-data
+            android:name="com.lagradost.cloudstream3.plugin.class"
+            android:value="com.DamianKing12.SeriesKaoProvider" />
+    </application>
+</manifest>

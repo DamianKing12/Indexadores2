@@ -9,7 +9,7 @@ import com.lagradost.cloudstream3.plugins.BasePlugin
 @CloudstreamPlugin
 class SeriesKaoPlugin : BasePlugin() {
     override fun load() {
-        // Registro del proveedor sin necesidad de Context
+        // Registro fundamental para que la App detecte el proveedor
         registerMainAPI(SeriesKaoProvider())
     }
 }

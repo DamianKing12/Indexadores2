@@ -9,7 +9,7 @@ import com.lagradost.cloudstream3.plugins.BasePlugin
 @CloudstreamPlugin
 class SeriesKaoPlugin : BasePlugin() {
     override fun load() {
-        // Registro del proveedor de búsqueda
+        // Registro del proveedor sin necesidad de Context
         registerMainAPI(SeriesKaoProvider())
     }
 }
@@ -18,6 +18,7 @@ class SeriesKaoProvider : MainAPI() {
     override var name = "SeriesKao"
     override var mainUrl = "https://serieskao.top"
     override var supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
+    override var lang = "es"
 
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"

@@ -4,6 +4,6 @@
     <application>
         <meta-data
             android:name="com.lagradost.cloudstream3.plugin.class"
-            android:value="com.DamianKing12.SeriesKaoProvider" />
+            android:value="com.DamianKing12.SeriesKaoPlugin" />
     </application>
 </manifest>

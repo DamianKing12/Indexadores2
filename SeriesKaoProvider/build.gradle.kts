@@ -22,17 +22,10 @@ android {
     }
 }
 
-dependencies {
-    // Usamos compileOnly para evitar duplicar librerías que la App de Cloudstream ya tiene.
-    // Esto es vital para evitar conflictos en tiempo de ejecución.
-    compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
-    compileOnly("com.github.Blatzar:NiceHttp:0.4.11")
-    compileOnly("org.jsoup:jsoup:1.18.3")
-    
-    implementation(kotlin("stdlib"))
-}
-
 cloudstream {
+    // ESTO ES LO MÁS IMPORTANTE: Nombre interno fijo para que coincida con el JSON
+    internalName = "SeriesKao"
+    
     version = 1
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
@@ -43,4 +36,11 @@ cloudstream {
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
     setRepo("DamianKing12", "Indexadores2", "github")
+}
+
+dependencies {
+    compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
+    compileOnly("com.github.Blatzar:NiceHttp:0.4.11")
+    compileOnly("org.jsoup:jsoup:1.18.3")
+    implementation(kotlin("stdlib"))
 }

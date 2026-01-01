@@ -5,21 +5,25 @@ plugins {
 }
 
 android {
-    namespace = "com.DamianKing12" // Sincronizado con el paquete
-    compileSdk = 35
-    
+    namespace = "com.DamianKing12"
+    compileSdk = 34 // Bajamos a 34 para compatibilidad con OpenGL
+
     defaultConfig {
         minSdk = 21
     }
-    
+
     buildFeatures {
         buildConfig = true
         viewBinding = false
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11 // Bajamos a Java 11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -37,13 +41,12 @@ cloudstream {
 }
 
 dependencies {
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.google.android.material:material:1.11.0")
     
     compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
     
     implementation(kotlin("stdlib"))
     implementation("com.github.Blatzar:NiceHttp:0.4.11")
     implementation("org.jsoup:jsoup:1.18.3")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
+    // Eliminamos jackson-module-kotlin si no es estrictamente necesario para simplificar
 }

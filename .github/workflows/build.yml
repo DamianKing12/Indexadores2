@@ -33,10 +33,10 @@ jobs:
           path: "build-output"
           fetch-depth: 0
 
-      - name: Setup JDK 17
+      - name: Setup JDK 11
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '11' # Cambiamos a Java 11 para compatibilidad
           distribution: 'temurin'
 
       - name: Setup Android SDK
@@ -47,27 +47,13 @@ jobs:
           gradle wrapper --gradle-version 8.10
           chmod +x gradlew
           ./gradlew make --no-daemon --stacktrace
-          
-          echo "--- DEBUG: Buscando plugins.json en todo el proyecto ---"
-          find . -name "plugins.json"
 
       - name: Prepare Artifacts
         run: |
           mkdir -p build-output
           rm -rf build-output/*
-          
-          # Copiamos todos los plugins compilados (.cs3)
           find . -name "*.cs3" -exec cp {} build-output/ \;
-          
-          # Copiamos el plugins.json (buscando en todas las carpetas posibles)
           find . -name "plugins.json" -exec cp {} build-output/ \;
-          
-          # Si no existe, creamos un aviso en el log
-          if [ ! -f "build-output/plugins.json" ]; then
-            echo "ERROR: No se encontró plugins.json"
-          fi
-          
-          echo "Contenido final para la rama builds:"
           ls -R build-output/
 
       - name: Push builds
@@ -79,7 +65,6 @@ jobs:
             git init
             git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
           fi
-          
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git checkout -B builds

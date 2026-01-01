@@ -3,15 +3,6 @@ package com.DamianKing12
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 import com.lagradost.cloudstream3.app
-import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
-import com.lagradost.cloudstream3.plugins.BasePlugin
-
-@CloudstreamPlugin
-class SeriesKaoPlugin : BasePlugin() {
-    override fun load() {
-        registerMainAPI(SeriesKaoProvider())
-    }
-}
 
 class SeriesKaoProvider : MainAPI() {
     override var name = "SeriesKao"
@@ -21,7 +12,8 @@ class SeriesKaoProvider : MainAPI() {
 
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
-        val document = app.get(url).document
+        val res = app.get(url) 
+        val document = res.document
         
         return document.select("div.result-item").mapNotNull {
             val title = it.selectFirst("div.title a")?.text() ?: return@mapNotNull null

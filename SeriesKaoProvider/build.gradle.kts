@@ -17,29 +17,21 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    // Forma moderna de configurar el target de Java para Kotlin
     kotlin {
         jvmToolchain(11)
     }
 }
 
-cloudstream {
-    // Eliminamos internalName ya que no es reconocido por esta versión del plugin
-    version = 1
-    description = "Plugin Indexador para SeriesKao"
-    authors = listOf("DamianKing12")
-    status = 1
-    tvTypes = listOf("TvSeries", "Movie")
-    requiresResources = false
-    language = "es"
-    iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
-    
-    setRepo("DamianKing12", "Indexadores2", "github")
+dependencies {
+    // Usamos implementation como en el repositorio funcional
+    implementation("com.github.recloudstream:cloudstream:master-SNAPSHOT")
+    implementation(kotlin("stdlib"))
+    implementation("com.github.Blatzar:NiceHttp:0.4.11")
+    implementation("org.jsoup:jsoup:1.18.3")
 }
 
-dependencies {
-    compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
-    compileOnly("com.github.Blatzar:NiceHttp:0.4.11")
-    compileOnly("org.jsoup:jsoup:1.18.3")
-    implementation(kotlin("stdlib"))
+cloudstream {
+    // Estas líneas son para metadatos, pero no usaremos 'make'
+    description = "Plugin Indexador para SeriesKao"
+    authors = listOf("DamianKing12")
 }

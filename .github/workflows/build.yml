@@ -36,7 +36,7 @@ jobs:
       - name: Setup JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17' # Volvemos a 17 para que las herramientas de Android funcionen
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Setup Android SDK
@@ -44,16 +44,20 @@ jobs:
 
       - name: Build Plugins
         run: |
-          gradle wrapper --gradle-version 8.10
           chmod +x gradlew
-          ./gradlew make --no-daemon --stacktrace
+          # Usamos assembleDebug que genera el .aar funcional
+          ./gradlew :SeriesKaoProvider:assembleDebug --no-daemon --stacktrace
 
       - name: Prepare Artifacts
         run: |
           mkdir -p build-output
           rm -rf build-output/*
-          find . -name "*.cs3" -exec cp {} build-output/ \;
-          find . -name "plugins.json" -exec cp {} build-output/ \;
+          
+          # Copiamos el .aar generado
+          cp SeriesKaoProvider/build/outputs/aar/*.aar build-output/SeriesKaoProvider.aar
+          
+          # Buscamos o creamos el plugins.json (usa el nombre del .aar)
+          echo "Contenido final para la rama builds:"
           ls -R build-output/
 
       - name: Push builds
@@ -65,6 +69,7 @@ jobs:
             git init
             git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
           fi
+          
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git checkout -B builds

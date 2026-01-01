@@ -9,13 +9,14 @@ import com.lagradost.cloudstream3.plugins.BasePlugin
 @CloudstreamPlugin
 class SeriesKaoPlugin : BasePlugin() {
     override fun load() {
-        // Registro del proveedor con el nombre completo de la clase
+        // Registramos el proveedor
         registerMainAPI(SeriesKaoProvider())
     }
 }
 
 class SeriesKaoProvider : MainAPI() {
-    override var name = "SeriesKao"
+    // CAMBIO CLAVE: El name debe ser igual al internalName del JSON
+    override var name = "SeriesKaoProvider" 
     override var mainUrl = "https://serieskao.top"
     override var supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
     override var lang = "es"

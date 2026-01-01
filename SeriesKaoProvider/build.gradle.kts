@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.DamianKing12.serieskao"
+    namespace = "com.DamianKing12" // Sincronizado con el paquete
     compileSdk = 35
     
     defaultConfig {
@@ -25,7 +25,6 @@ android {
 
 cloudstream {
     version = 1
-    
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
     status = 1
@@ -34,7 +33,6 @@ cloudstream {
     language = "es"
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
-    // Usamos el formato de 3 parámetros aquí también
     setRepo("DamianKing12", "Indexadores2", "github")
 }
 
@@ -49,4 +47,3 @@ dependencies {
     implementation("org.jsoup:jsoup:1.18.3")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
 }
-//

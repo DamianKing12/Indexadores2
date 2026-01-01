@@ -9,7 +9,6 @@ import com.lagradost.cloudstream3.plugins.BasePlugin
 @CloudstreamPlugin
 class SeriesKaoPlugin : BasePlugin() {
     override fun load() {
-        // Registramos el proveedor para que aparezca en la lista
         registerMainAPI(SeriesKaoProvider())
     }
 }
@@ -20,12 +19,10 @@ class SeriesKaoProvider : MainAPI() {
     override var supportedTypes = setOf(TvType.Movie, TvType.TvSeries)
     override var lang = "es"
 
-    // Buscador original que sí funciona
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
         val document = app.get(url).document
         
-        // Usamos los selectores precisos: div.result-item y div.title a
         return document.select("div.result-item").mapNotNull {
             val title = it.selectFirst("div.title a")?.text() ?: return@mapNotNull null
             val href = it.selectFirst("div.title a")?.attr("href") ?: ""
@@ -37,7 +34,6 @@ class SeriesKaoProvider : MainAPI() {
         }
     }
 
-    // Lógica de links simplificada para máxima compatibilidad
     override suspend fun loadLinks(
         data: String,
         isCasting: Boolean,
@@ -45,21 +41,15 @@ class SeriesKaoProvider : MainAPI() {
         callback: (ExtractorLink) -> Unit
     ): Boolean {
         val doc = app.get(data).document
-
-        // Buscamos todos los iframes (donde suelen estar los reproductores)
         doc.select("iframe").amap {
             var iframeUrl = it.attr("src")
-
             if (iframeUrl.startsWith("//")) {
                 iframeUrl = "https:$iframeUrl"
             }
-
             if (iframeUrl.isNotEmpty()) {
-                // Cargamos el extractor automático de Cloudstream
                 loadExtractor(iframeUrl, data, subtitleCallback, callback)
             }
         }
-
         return true
     }
 }

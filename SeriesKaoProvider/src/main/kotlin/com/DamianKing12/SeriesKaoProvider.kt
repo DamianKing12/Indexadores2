@@ -3,6 +3,16 @@ package com.DamianKing12
 import com.lagradost.cloudstream3.*
 import com.lagradost.cloudstream3.utils.*
 import com.lagradost.cloudstream3.app
+import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
+import com.lagradost.cloudstream3.plugins.BasePlugin
+
+@CloudstreamPlugin
+class SeriesKaoPlugin : BasePlugin() {
+    override fun load() {
+        // Registro del proveedor para que la App lo reconozca
+        registerMainAPI(SeriesKaoProvider())
+    }
+}
 
 class SeriesKaoProvider : MainAPI() {
     override var name = "SeriesKao"

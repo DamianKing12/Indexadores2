@@ -6,25 +6,30 @@ plugins {
 
 android {
     namespace = "com.DamianKing12"
-    compileSdk = 34 // Bajamos a 34 para compatibilidad con OpenGL
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 21
     }
 
-    buildFeatures {
-        buildConfig = true
-        viewBinding = false
-    }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11 // Bajamos a Java 11
+        sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
         jvmTarget = "11"
     }
+}
+
+dependencies {
+    // Usamos compileOnly para evitar duplicar librerías que la App de Cloudstream ya tiene.
+    // Esto es vital para evitar conflictos en tiempo de ejecución.
+    compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
+    compileOnly("com.github.Blatzar:NiceHttp:0.4.11")
+    compileOnly("org.jsoup:jsoup:1.18.3")
+    
+    implementation(kotlin("stdlib"))
 }
 
 cloudstream {
@@ -38,15 +43,4 @@ cloudstream {
     iconUrl = "https://www.google.com/s2/favicons?domain=serieskao.top&sz=%size%"
     
     setRepo("DamianKing12", "Indexadores2", "github")
-}
-
-dependencies {
-    implementation("com.google.android.material:material:1.11.0")
-    
-    compileOnly("com.github.recloudstream:cloudstream:master-SNAPSHOT")
-    
-    implementation(kotlin("stdlib"))
-    implementation("com.github.Blatzar:NiceHttp:0.4.11")
-    implementation("org.jsoup:jsoup:1.18.3")
-    // Eliminamos jackson-module-kotlin si no es estrictamente necesario para simplificar
 }

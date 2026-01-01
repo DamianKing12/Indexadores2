@@ -9,7 +9,6 @@ import com.lagradost.cloudstream3.plugins.BasePlugin
 @CloudstreamPlugin
 class SeriesKaoPlugin : BasePlugin() {
     override fun load() {
-        // Registro del proveedor para que la App lo reconozca
         registerMainAPI(SeriesKaoProvider())
     }
 }
@@ -22,8 +21,7 @@ class SeriesKaoProvider : MainAPI() {
 
     override suspend fun search(query: String): List<SearchResponse> {
         val url = "$mainUrl/?s=$query"
-        val res = app.get(url) 
-        val document = res.document
+        val document = app.get(url).document
         
         return document.select("div.result-item").mapNotNull {
             val title = it.selectFirst("div.title a")?.text() ?: return@mapNotNull null

@@ -2,15 +2,10 @@
   {
     "name": "SeriesKao",
     "internalName": "com.DamianKing12.SeriesKaoProvider",
-    "authors": [
-      "DamianKing12"
-    ],
+    "authors": ["DamianKing12"],
     "description": "Plugin Indexador para SeriesKao",
     "version": 1,
-    "tvTypes": [
-      "TvSeries",
-      "Movie"
-    ],
+    "tvTypes": ["TvSeries", "Movie"],
     "language": "es",
     "iconUrl": "https://www.google.com/s2/favicons?domain=serieskao.top&sz=64",
     "url": "https://raw.githubusercontent.com/DamianKing12/Indexadores2/builds/SeriesKaoProvider.cs3",

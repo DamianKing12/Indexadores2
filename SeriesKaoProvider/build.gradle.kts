@@ -17,15 +17,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
+    // Forma moderna de configurar el target de Java para Kotlin
+    kotlin {
+        jvmToolchain(11)
     }
 }
 
 cloudstream {
-    // ESTO ES LO MÁS IMPORTANTE: Nombre interno fijo para que coincida con el JSON
-    internalName = "SeriesKao"
-    
+    // Eliminamos internalName ya que no es reconocido por esta versión del plugin
     version = 1
     description = "Plugin Indexador para SeriesKao"
     authors = listOf("DamianKing12")
